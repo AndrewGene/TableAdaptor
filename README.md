@@ -1,4 +1,4 @@
-# TableAdaptor
+# Table Adaptor
 Easily create html tables from a JSON object.
 
 ## Requirements

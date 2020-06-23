@@ -103,7 +103,7 @@ var deleting = function (tableRow) {
 ```
 
 ## CSS Rules
-This is used during the .Normal state to apply special formatting to individual pieces of data in your table (often a particular td).  The following rule will look at the data and if the value of lastUpdated is different from submitted then for the td where the "lastUpdated" key is show we will add the class recently-updated.  The recently-updated class might change the text color of the "lastUpdated" field to green so it stands out from those that have not been recently updated.
+This is used during the .Normal state to apply special formatting to individual pieces of data in your table (often a particular td).  The following rule will look at the data and if the value of "lastUpdated" is different from "submitted" then for the td where the "lastUpdated" key is show we will add the class "recently-updated".  The "recently-updated" class might change the text color of the "lastUpdated" field to green so it stands out from those that have not been recently updated.
 
 ```js
 var cssRules = [];

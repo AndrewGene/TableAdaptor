@@ -39,7 +39,7 @@ var commands = [viewCommand, claimCommand];
 ```
      
 ## Formatting
-You can choose the format of each row / state of your table in this callback.  While you can add special formatting for the .Normal state.  You get that one for free because it will always be used.
+You can choose the format of each row / state of your table in this callback.  While you can add special formatting for the .Normal state, it is not necessary.  You get that one for free because it will always be used.
 
 # Important
 ### all events related to changing state or causing action (edit/delete) will need the 'command-link' class if you are writing them by hand like below

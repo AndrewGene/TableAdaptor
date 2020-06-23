@@ -101,12 +101,25 @@ var deleting = function (tableRow) {
     tableSchema.reload();
 }
 ```
+
+## CSS Rules
+This is used during the .Normal state to apply special formatting to individual pieces of data in your table (often a particular td).  The following rule will look at the data and if the value of lastUpdated is different from submitted then for the td where the "lastUpdated" key is show we will add the class recently-updated.  The recently-updated class might change the text color of the "lastUpdated" field to green so it stands out from those that have not been recently updated.
+
+```js
+var cssRules = [];
+
+ $.each(requests, function (index, value) {
+     if (value.lastUpdated !== value.submitted) {
+         cssRules.push(new CSSRule(index, "lastUpdated", "recently-updated"));
+     }     
+ });
+```
  
  ## Create the schema
  Pass in all of the parameters to the TableSchema constructor to generate your table
  
  ```js
  var commands = [viewCommand, claimCommand];
- var tableSchema = new TableSchema("#table-to-adapt", tableHeaders, requests, jsonKeys, commands, format, editing, deleting, null, loaded);
+ var tableSchema = new TableSchema("#table-to-adapt", tableHeaders, requests, jsonKeys, commands, format, editing, deleting, cssRules, loaded);
  ```
 

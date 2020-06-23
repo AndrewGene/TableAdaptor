@@ -34,6 +34,8 @@ claimCommand.commandText = "Claim";
 claimCommand.callback = function (tablerow) {   
    //AJAX call to 'claim' this request
 };
+
+var commands = [viewCommand, claimCommand];
 ```
      
 ## Formatting
@@ -119,7 +121,6 @@ var cssRules = [];
  Pass in all of the parameters to the TableSchema constructor to generate your table
  
  ```js
- var commands = [viewCommand, claimCommand];
  var tableSchema = new TableSchema("#table-to-adapt", tableHeaders, requests, jsonKeys, commands, format, editing, deleting, cssRules, loaded);
  ```
 

@@ -15,7 +15,7 @@ The TableAdaptor is data-driven approach to building html tables using jQuery.  
 ```
 
 ## First, create your table headers and map them to your JSON keys (order is important)
-### Notice: The extra 'Commands' header is there because the following commands will both go in that column.  The TableCommand objects below are rendered only during the .Normal state.
+Notice: The extra 'Commands' header is there because the following commands will both go in that column.  The TableCommand objects below are rendered only during the .Normal state.
 
 ```js
 let tableHeaders = ["RequestID", "Name", "Address", "Created", "Updated", "Editor", "Commands"];
@@ -37,13 +37,14 @@ claimCommand.callback = function (tablerow) {
 ```
      
 ## Formatting
-### You can choose the format of each row / state of your table in this callback
+You can choose the format of each row / state of your table in this callback
 
 # Important
 ### all events related to changing state or causing action (edit/delete) will need the 'command-link' class if you are writing them by hand like below
 
-### data-action will either equal 'edit' or 'delete' and will fire the function passed into 'editing'/'deleting' below respectively.
-### data-toState will either be 'Insert'/'Edit'/Delete/'Normal'/'Empty' and will change the state of the row after it is clicked.  This will immediately reload the table and this format function will run to reflect the new state.
+data-action will either equal 'edit' or 'delete' and will fire the function passed into 'editing'/'deleting' below respectively.
+
+data-toState will either be 'Insert'/'Edit'/Delete/'Normal'/'Empty' and will change the state of the row after it is clicked.  This will immediately reload the table and this format function will run to reflect the new state.
 
 ```js
 let format = function (tableRow) {
@@ -60,7 +61,7 @@ let format = function (tableRow) {
 ```
 
 ## Table Loaded
-### This callback will fire any time the table is (re)loaded
+This callback will fire any time the table is (re)loaded
 
 ```js
 let loaded = function () { 
@@ -69,7 +70,7 @@ let loaded = function () {
 ```
 
 ## Adding Values
-### Because javascript is loosely typed you can dynamically add values to your data like we do here by looking at a 'customerCount' variable that could be in our JSON object and adding an 'impact' property to the data which shows an image (green/red/yellow)
+Because javascript is loosely typed you can dynamically add values to your data like we do here by looking at a 'customerCount' variable that could be in our JSON object and adding an 'impact' property to the data which shows an image (green/red/yellow)
 
 ```js
  $.each(requests, function (ind, value) {
@@ -85,7 +86,7 @@ let loaded = function () {
  });
 ```
 ## Editing / Deleting
-### Unlike the commands above, these are special functions which you might want to perform on the data in your table.  These are passed in as parameters below.
+Unlike the commands above, these are special functions which you might want to perform on the data in your table.  These are passed in as parameters below.
 
 ```js
 var editing = function (tableRow) {
@@ -102,7 +103,7 @@ var deleting = function (tableRow) {
 ```
  
  ## Create the schema
- ### Pass in all of the parameters to the TableSchema constructor
+ Pass in all of the parameters to the TableSchema constructor to generate your table
  
  ```js
  var commands = [viewCommand, claimCommand];

@@ -124,3 +124,75 @@ var cssRules = [];
  var tableSchema = new TableSchema("#table-to-adapt", tableHeaders, requests, jsonKeys, commands, format, editing, deleting, cssRules, loaded);
  ```
 
+ ## So...putting the code all together using ALL of the capabilities of the table adaptor...
+ 
+ ```js
+let tableHeaders = ["RequestID", "Name", "Address", "Created", "Updated", "Editor", "Commands"];
+let jsonKeys = ["requestId", "name", "serviceStreetAddress", "submitted", "lastUpdated", "editor"];
+
+let viewCommand = new TableCommand();
+viewCommand.commandText = "View";
+viewCommand.callback = function (tablerow) {
+   var webRequestId = tablerow.data.requestId;
+   var link = "RequestDetails?WebRequestId=";
+   window.location = link + webRequestId.toString();
+};
+
+let claimCommand = new TableCommand();
+claimCommand.commandText = "Claim";
+claimCommand.callback = function (tablerow) {   
+   //AJAX call to 'claim' this request
+};
+
+var commands = [viewCommand, claimCommand];
+
+let format = function (tableRow) {
+   if (tableRow.state === rowState.edit) {                    
+       return "<tr class='edit-mode'><td colspan='3'>Edit Row Showing</td><td><input id='btnCancel' type='button' value='Done' data-action='edit' class='command-link'/><input id='btnDelete' type='button' value='Delete' data-tostate='Delete' class='command-link' /><input id='btnCancel' type='button' value='Cancel' data-toState='Normal' class='command-link'/></td></tr>";
+   }
+   if (tableRow.state === rowState.delete) {
+       return "<tr class='delete-mode'><td colspan='3'>Are you sure you want to delete " + tableRow.data.serviceStreetAddress + "?</td > <td><input id='btnDelete' type='button' value='YES' data-action='delete' class='command-link' /><input id='btnCancel' type='button' value='NO' data-toState='Edit' class='command-link'/></td></tr > ";
+   }
+   if (tableRow.state === rowState.empty) {
+       return "<tr class='empty-state'><td colspan='7'>No requests are waiting.</td></tr>";
+   }
+};
+
+let loaded = function () { 
+ alert("Table loading complete!");
+};
+
+$.each(requests, function (ind, value) {
+     if (value.customerCount > 20000) {
+         value.impact = "images/HighImpact.png";
+     }
+     else if (value.customerCount > 500) {
+         value.impact = "images/MediumImpact.png";
+     }
+     else {
+         value.impact = "images/LowImpact.png"
+     }
+ });
+ 
+ var editing = function (tableRow) {
+    console.log(tableRow.data);
+    tableRow.state = rowState.normal;
+    tableSchema.reload();
+}
+
+var deleting = function (tableRow) {
+    console.log(tableRow.data);
+    tableRow.state = rowState.normal;
+    tableSchema.reload();
+}
+
+var cssRules = [];
+
+ $.each(requests, function (index, value) {
+     if (value.lastUpdated !== value.submitted) {
+         cssRules.push(new CSSRule(index, "lastUpdated", "recently-updated"));
+     }     
+ });
+ 
+ var tableSchema = new TableSchema("#table-to-adapt", tableHeaders, requests, jsonKeys, commands, format, editing, deleting, cssRules, loaded);
+ ```
